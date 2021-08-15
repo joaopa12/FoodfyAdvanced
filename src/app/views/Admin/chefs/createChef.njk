@@ -1,0 +1,35 @@
+{% extends "Admin/layout.njk" %}
+{% block content %}
+    <div class="create_content">
+        <form action="/admin/Chefs" method="post" enctype="multipart/form-data">
+            <div class="create_header">
+                <p>Criando Chef</p>
+                <button type="submit">Salvar Chef</button>
+            </div>
+            <div class="fields">
+                <div class="item">
+                    <p>Nome do Chef</p>
+                    <div>
+                        <input type="text" name="name" value="">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="titles_upload">
+                        <p>Adicionar</p>
+                        <p>Avatar Selecionado</p>
+                    </div>
+                    <div >
+                        <div class="photos">
+                            <div id="photos-upload">
+                                <input type="file" name="photos" id="photos-input" multiple="multiple" onchange="PhotosUpload.handleFileInput(event)" accept="image/*">
+                                <i class="material-icons">add</i>
+                            </div>
+                            <div id="photos-preview-select">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

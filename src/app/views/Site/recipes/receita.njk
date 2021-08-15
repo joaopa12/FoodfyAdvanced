@@ -1,0 +1,60 @@
+{% extends "Site/layout.njk" %}
+{% block content %}
+    <div class="main_recipe">
+        <div class="image_page_recipe">
+            <img src="{{files[0].src}}" alt="">
+        </div>
+        <div class="title_author">
+            <h1>{{recipe.title}}</h1>
+            <p>
+                {% for chef in chefsOptions %}
+                    {% if recipe.chef_id === chef.id %}{{ chef.name }}
+                    {% endif %}
+                {% endfor %}
+            </p>
+        </div>
+        <div class="ingredients">
+            <div class="title_ingredients">
+                <h1>Ingredientes</h1>
+                <div class="button_ingredients_hide">
+                    <p>Esconder</p>
+                </div>
+            </div>
+            <div class="content_ingredients">
+                <ul>
+                    {% for item in recipe.ingredients %}
+                        <li>{{item}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="preparation_main">
+            <div class="preparation">
+                <h1>Modo de preparo</h1>
+                <div class="button_preparation_hide">
+                    <p>Mostrar</p>
+                </div>
+            </div>
+            <div class="content_preparation hide">
+                <ul>
+                    {% for item in recipe.preparation %}
+                        <li>{{item}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="more_info_recipe">
+            <div class="more_info_recipe_title">
+                <h1>Informações adicionais</h1>
+                <div class="button_more_recipe_hide">
+                    <p>Esconder</p>
+                </div>
+            </div>
+            <div class="content_more_recipe">
+                <p>{{recipe.information}}</p>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "Admin/layout.njk" %}
+{% block content %}
+<div class="global">
+<div class="recipes">
+    <div class="recipe_title">
+        <p>Gerenciar receitas</p>
+         
+        <a class="button" href="/admin/Receitas/criar">Criar Receita</a>
+         
+    </div>
+    <div class="recipe_cards">
+       {% for recipe in recipes %}
+           <div class="card" id="{{recipe.id}}">
+               <div class="card_image">
+                   <img src="{{recipe.image.src}}" alt="">
+               </div>
+               <div class="card_info">
+                   <p>{{recipe.title}}</p>
+                   <p>por {% for chef in chefsOptions %}
+                    {% if recipe.chef_id === chef.id %}{{ chef.name }}{% endif %}
+                   {% endfor %}</p>
+                   <a href="/admin/Receitas/{{recipe.id}}">Visualizar</a>
+               </div>
+           </div>
+       {% endfor %}
+    </div>
+</div>
+</div>
+{% endblock %}

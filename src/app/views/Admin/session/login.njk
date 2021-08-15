@@ -1,0 +1,12 @@
+{% extends "Admin/session/layout.njk" %}
+{% block content %}
+<div class="session_content">
+    <div class="session_form">
+        <form action="/admin/users/login" method="POST">
+            <div class="session_header">
+                <p>Iniciar Sessão</p>
+            </div>
+            {% include 'Admin/session/fields.njk'%}
+          </form>  
+        </div>
+{% endblock%}

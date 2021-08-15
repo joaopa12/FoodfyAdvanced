@@ -1,0 +1,44 @@
+{% extends "Site/layout.njk" %}
+{% block content %}
+    <div class="main_recipes">
+        <section class="cards">
+            {% for recipe in recipes %}
+                <div class="card" image="{{recipe.image.src}}" id="{{recipe.id}}">
+                    <div class="card_image">
+                        <img src="{{recipe.image.src}}" alt="">
+                    </div>
+                    <div class="card_title">
+                        <h1>{{recipe.title}}</h1>
+                    </div>
+                    <div class="card_description">
+                        {% for chef in chefsOptions %}
+                   {% if recipe.chef_id === chef.id %}por {{ chef.name }}{% endif %}
+                   {% endfor %}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+         <div class="pagination" 
+           data-page={{+pagination.page}}
+           data-total={{+pagination.total}}
+           data-filter={{filter}}
+      ></div>
+    </div>
+   
+    <div class="modal_overlay">
+        <div class="modal">
+            <div class="modalconteudo">
+                <img src="" alt="">
+                <h1></h1>
+                <p></p>
+            </div>
+            <div class="details">
+                <p>Mais informações</p>
+            </div>
+            <div class="fechar">
+                <p>Fechar Modal</p>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

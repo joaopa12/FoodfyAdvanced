@@ -1,0 +1,39 @@
+      {% if not error %}
+     <div class="fields">
+                <div class="item">
+                    <p>Email</p>
+                    <div>
+                        <input type="text" name="email" value="{{user.email}}" placeholder="Digite seu email" onblur="Validate.apply(this, 'isEmail')" ></div>
+                    </div>
+                    <div class="item">
+                        <p>Senha</p>
+                        <div>
+                            <input type="password" name="password" value="" placeholder="Digite sua senha"></div>
+                        </div>
+                    </div>
+                    <div class="session_buttons">
+                        <a href="/admin/users/forgot-password">Perdeu a conta?</a>
+                        <button type="submit">Acessar</button>
+                    </div>
+             </div>
+    {% endif %}
+
+    {% if error %}
+     <div class="fields">
+                <div class="item error">
+                    <p>Email</p>
+                    <div>
+                        <input type="text" name="email" value="{{user.email}}" placeholder="Digite seu email" onblur="Validate.apply(this, 'isEmail')" ></div>
+                    </div>
+                    <div class="item error">
+                        <p>Senha</p>
+                        <div>
+                            <input type="password" name="password" value="" placeholder="Digite sua senha"></div>
+                        </div>
+                    </div>
+                    <div class="session_buttons">
+                        <a href="/admin/users/forgot-password">Perdeu a conta?</a>
+                        <button type="submit">Acessar</button>
+                    </div>
+             </div>
+    {% endif %}

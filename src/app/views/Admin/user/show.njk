@@ -1,0 +1,17 @@
+{% extends "Admin/layout.njk" %}
+{% block content %}
+    <div class="create_content">
+        <div class="user_content">
+            <form action="/admin/users?_method=PUT" method="post">
+                <div class="create_header">
+                    <p>Bem vindo {{user.name}}</p>
+                    <div class="buttons_create_user">
+                         <input type="hidden" name="id" value="{{ user.id }}">
+                        <button type="submit">Salvar</button>
+                    </div>
+                </div>
+                {% include 'Admin/user/fields_show.njk' %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

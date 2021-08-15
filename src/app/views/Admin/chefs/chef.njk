@@ -1,0 +1,58 @@
+{% extends "Admin/layout.njk" %}
+{% block content %}
+    <div class="global">
+        <div class="chefs">
+            <div class="chefs_title">
+                <p>Chef:{{ Chef.name }}</p>
+                <a class="button" href="/admin/Chefs/{{Chef.id}}/edit">Editar Chef</a>
+            </div>
+            <div class="chef_content">
+                <div class="chef">
+                    <div class="chef_image">
+                        <img src="{{files[0].src}}">
+                    </div>
+                    <div class="title_chef">
+                        <p>{{ Chef.name }}</p>
+                    </div>
+                    <div class="chef_recipes">
+                        <p>{% for chef in chef_recipes %}
+                            {% if chef.id == Chef.id %}
+                                {{ chef.total_recipes }}
+                            {% endif %}
+                        {% endfor %} Receitas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="recipes_of_chef">
+                <p>Receitas</p>
+                <div class="recipes_chefs">
+                    <div class="recipe_cards">
+
+                        {% for recipe in recipes %}
+                           {% if recipe.chef_id == Chef.id %}
+                            <div class="card" id="{{recipe.id}}">
+                                <div class="card_image">
+                                    <img src="{{recipe.image.src}}" alt="{{recipe.id}}">
+                                </div>
+                                <div class="card_info">
+                                    <p>{{recipe.title}}</p>
+                                    <p>
+                                    por 
+                                    {% for chef in chef_recipes %}
+                                    {% if chef.id == Chef.id %}
+                                      {{ chef.name }}
+                                    {% endif %}
+                                    {% endfor %}    
+                                    {{recipe.chef}}</p>
+                                    <a href="/admin/Receitas/{{recipe.id}}">Visualizar</a>
+                                </div>
+                            </div>
+                           {% endif %}
+                        {% endfor %}
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

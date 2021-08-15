@@ -1,0 +1,24 @@
+{% extends "Admin/layout.njk" %}
+{% block content %}
+    <div class="global">
+        <div class="chefs">
+            <div class="chefs_title">
+                <p>Gerenciar chefs</p>
+                <a class="button" href="/admin/Chefs/criar">Cadastrar Chef</a>
+            </div>
+            <div class="chefs_cards">
+            {% for Chef in Chefs %}                
+                <div class="chef_card">
+                    <div class="image_card_chef">
+                        <img src="{{Chef.image.src}}" alt="">
+                    </div>
+                    <div class="name_chef">
+                        <p>{{ Chef.name }}</p>
+                        <a href="/admin/Chefs/{{ Chef.id }}">Visualizar</a>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

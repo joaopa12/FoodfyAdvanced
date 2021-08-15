@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap');
+
+.users{
+    margin-top: 70px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 50px;
+    
+}
+
+.user_name p{
+    font-size: 18px;
+    font-weight: 600;
+    color: #111111;
+    margin-bottom: 4px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.user_email p{
+    font-size: 14px;
+    color: #777777;
+    margin-bottom: 16px;
+}
+
+.users_commands{
+    display: flex;
+    align-items: center;
+}
+.users_commands a{
+    margin-right: 16px;
+    color: #6558C3;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+form button.command_delete{
+    color: #F55A5A;
+    background-color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button[type="delete"]{
+    background-color: #DC4747 ;
+    color: #FFFFFF;
+    font-size: 16px;
+    padding: 8px 48px;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    right: 165px;
+}
+
+.user_content{
+    position: relative;
+}
+
+.command_cancel{
+    background-color: #8A8A8A ;
+    color: #FFFFFF;
+    font-size: 16px;
+    padding: 8px 48px;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-left: 16px;
+}
+
+.logout_button {
+    position: relative;
+    display: flex;
+    left: 520px;
+}
+.logout_button button{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #111111;
+    color: #FFFFFF;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.logout_button button:hover{
+    color: #999999;
+    transition: 100ms;
+}

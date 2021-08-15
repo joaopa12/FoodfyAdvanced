@@ -1,0 +1,18 @@
+<header>
+    <div class="logo">
+        <a href="/admin/Receitas/"><img src="/assets/logod.png" alt=""> </a>
+        <div class="linksadmin">
+            <a href="/admin/Receitas">Receitas</a>
+            <a href="/admin/Chefs">Chefs</a>
+            <a href="/admin/users">Usuários</a>
+            <a class="home_button" href="/">Site</a>
+        </div>
+        {% if session.userId %}
+        <div class="logout_button">
+                <form action="/admin/users/logout" method="POST">
+                     <button>Sair</button>
+                </form>
+        </div>
+         {% endif %}
+    </div>
+</header>

@@ -1,0 +1,14 @@
+<header>
+    <a href="/">
+        <img src="/assets/logo.png" alt=""></a>
+        <div class="Pages">
+            <a href="/Sobre">Sobre</a>
+            <a href="/Receitas">Receitas</a>
+            <a href="/Chefs">Chefs</a>
+            <a href="/admin/users/login">Logar</a>
+        </div>
+        <form action="/Resultados" method="GET">
+            <input type="text" name="filter" placeholder="Buscar uma receita" value="{{ filter }}">
+                <button type="submit">Buscar</button>
+            </form>
+        </header>

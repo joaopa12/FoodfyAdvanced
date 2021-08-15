@@ -1,0 +1,62 @@
+{% extends "Admin/layout.njk" %}
+{% block content %}
+    <div class="global">
+        <div class="show_content">
+            <div class="show_header">
+                <div class="recipe_show_title">
+                    <p>Receita:{{recipe.title}}</p>
+                </div>
+                <div class="show_edit">
+                    <a href="/admin/Receitas/{{recipe.id}}/edit">Editar Receita</a>
+                </div>
+            </div>
+            <div class="gallery">
+                <div class="highlight">
+                    {% if not files[0] %}
+                 <img src="http://placehold.it/500x500?text=PRODUTO SEM FOTO" alt="">
+                {% else %}
+                <img src="{{files[0].src}}" alt="" srcset="">
+                {% endif %}
+                </div>
+                <div class="gallery-preview">
+                    {% for image in files %}
+                         <img src="{{image.src}}" alt="{{image.name}}"
+                         {% if loop.index0 == 0 %}class="active"{% endif %}
+                         onclick="ImageGallery.setImage(event)"
+                         >
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="main_image_show">
+            </div>
+            <div class="show_info">
+                <div class="title">
+                    <p>{{recipe.title}}</p>
+                    <p>{% for chef in chefsOptions %}
+                    {% if recipe.chef_id === chef.id %}{{ chef.name }}{% endif %}
+                   {% endfor %}</p>
+                </div>
+                <div class="show_ingredients">
+                    <p>Ingredientes</p>
+                    <ul>
+                        {% for ingredient in recipe.ingredients %}
+                            <li>{{ ingredient }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="show_preparation">
+                    <p>Modo de preparo</p>
+                    <ul>
+                        {% for item in recipe.preparation %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="show_information">
+                    <p>Informações adicionais</p>
+                    <p>{{recipe.information}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

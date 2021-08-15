@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap');
+
+/* validate errors */
+@keyframes hidemessage {
+    0%{
+        opacity:0;
+    }
+    25%{
+        opacity:1;
+    }
+    75%{
+        opacity:1;
+    }
+    100%{
+        opacity:0;
+        visibility: hidden;
+    }
+    
+}
+
+.item div{
+    position: relative;
+}
+
+.item div .error{
+    background-color: #DC4747;
+    color: white;
+    padding:5px;
+    width: 100%;
+    border-radius: 4px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    animation: hidemessage 2s ease-out forwards;
+    z-index: 1;
+}
+
+.messages {
+    position: absolute;
+    right: 0;
+    text-align: center;
+    margin:15px;
+    padding:45px 90px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
+    color: #FFFFFF;
+    font-size: 16px;
+    animation: hidemessage 4s ease-out forwards;
+    z-index: 1;
+}
+
+@media (min-width: 1500px){
+    .messages{
+        right: 200px;
+    }
+}
+@media (min-width: 2220px){
+    .messages{
+        right: 650px;
+    }
+}
+
+.messages.error{
+    background-color: #DC4747;
+}
+
+.messages.sucess{
+    background-color: #01B12A;
+}
+
+/* inputs */
+.fields .item.error div input{
+    border: 1px solid #FF3131;
+}

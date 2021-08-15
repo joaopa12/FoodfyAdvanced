@@ -1,0 +1,474 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+body{
+     height:100vh;
+     width:100vw;
+     display: flex;
+     flex-direction: column;
+     overflow-x: hidden;
+     
+}
+/* Estudar flex box pra deixar o header sempre no topo*/
+/* margin 0 auto só preenche na horizontal - Perfeito */
+@keyframes AnimaçãoUp{
+     0%{
+        opacity:0;
+        transform: translateY(15px);
+     }
+     100%{
+        opacity:1;  
+     }
+}
+header {
+     margin: 0 auto;
+     width: 940px;
+     padding: 30px 0px; 
+     display: grid;
+     grid-template-columns: 1fr 10fr 1fr;
+     animation:AnimaçãoUp 1000ms;
+}
+header a{
+     color: #111111;
+     text-decoration: none;
+     font-size: 16px;
+     font-weight:500;
+     font-family: 'Roboto', sans-serif;
+}
+header a:hover{
+     color: #979797;
+     transition: 100ms;
+}
+.Pages{
+     padding-left: 125px;
+     display: flex;
+     align-items:center;
+}
+.Pages a{
+     margin-right: 25px;
+     letter-spacing:1px;
+}
+.active_page{
+     color: #b1b1b1;
+}
+.footer{
+     background: #EEEEEE;
+     bottom: 0px;
+     width: 100%;
+     text-align: center;
+     padding: 26px 0px;
+     margin-top: auto;
+
+}
+.footer p{
+     font-family: 'Roboto', sans-serif;
+     font-size: 14px;
+     color: #999999;
+}
+
+/* Home */
+.main{
+     min-height: 370px;
+     bottom: 0;
+     width: 940px;
+     position: relative;
+     margin:0 auto;
+     background: #FBDFDB;
+     border-radius: 30px;
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     gap: 50px;
+     margin-bottom:32px;
+     animation:AnimaçãoUp 1000ms;
+     
+}
+.main_info{
+     padding:100px 60px ;
+}
+.main_info h1{
+     font-family: 'Roboto', sans-serif;
+     font-weight: bold;
+     font-size: 32px;
+     line-height: 38px;
+     padding-bottom: 10px;
+}
+.main_info p{
+     font-family: 'Roboto', sans-serif;
+     font-size: 18px;
+     line-height: 28px;
+     color: #000000;
+     opacity: 0.7;
+}
+.image_main{
+     padding-left: 120px;
+     padding-top: 66px;
+}
+.Highlights{
+     width: 940px;
+     margin:0 auto;
+     animation:AnimaçãoUp 1000ms;
+}
+.Highlights_title h1{
+     font-family: 'Roboto', sans-serif;
+     font-size: 24px;
+     letter-spacing:0.5px;
+     font-weight: bold;
+     margin-bottom: 40px;
+}
+
+/* Cards */
+.cards {
+     margin-bottom:50px;
+     display: grid;
+     grid-template-columns: 1fr 1fr 1fr;
+     gap: 20px;
+}
+.card{
+     cursor: pointer;
+     margin-bottom: 10px;
+}
+.card_image img{
+     width: 100%;
+     height: 140px;
+     border-radius: 15px;
+     margin-bottom: 20px;
+     object-fit: cover;
+     
+}
+.card_title h1{
+     font-family: 'Roboto', sans-serif;
+     font-weight: 500;
+     font-size: 18px;
+     margin-bottom: 5px;
+}
+.card_description{
+     font-family: 'Roboto', sans-serif;
+     font-weight: 500;
+     font-size: 14px;
+     color: #777777;
+}
+/* About */
+.main_about{
+     width:940px;
+     margin: 0 auto;
+     font-family: 'Roboto', sans-serif;
+     text-align: justify;
+     margin-bottom: 32px;
+     animation:AnimaçãoUp 1000ms;
+     
+}
+.main_about h1{
+     font-size: 24px;
+}
+.main_about h2{
+     font-size: 20px;
+}
+.main_about p{
+     line-height: 28px;
+     font-size: 18px;
+     padding: 30px 0px;
+     color: #444444;
+}
+/* Recipes */
+.main_recipes{
+     position: relative;
+     min-height: 80vh;
+     width: 940px;
+     margin: 0 auto;
+     animation:AnimaçãoUp 1000ms;
+}
+
+/* Modaloverlay */
+.modal_overlay{
+     background-color: rgba(0, 0, 0, 0.7);
+     width: 100%;
+     height: 100%;
+     top: 0;
+     position: fixed;
+     opacity: 0;
+     visibility: hidden;
+}
+.modal{
+     background-color: white;
+     width: 50%;
+     max-width: 650px;
+     min-width: 500px;
+     height: 550px;
+     border-radius: 10px;
+     margin: 5vh auto;
+     position: relative;
+     top: 10%;
+ }
+/* Modaloverlay active */
+.modal_overlay.active{
+     opacity: 1;
+     visibility: visible;
+     transition: 1000ms;
+     
+ }
+ .modal_overlay.removemodal{
+     opacity: 0;
+     transition: 1000ms;
+ }
+ .modal_overlay.active .modal{
+     animation:AnimaçãoUp 1000ms;
+ }
+.close-modal {
+     position: absolute;
+     right: 5px;
+     top: 5px;
+     text-decoration: none;
+}
+.modalconteudo img{
+     position: relative;
+     width: 90%;
+     margin: 0 5%;
+     border-radius: 15px;
+     height: 300px;
+     top: 40px;
+     object-fit: cover;
+}
+.modalconteudo h1{
+     text-align: center;
+     margin-top:50px;
+     font-family: 'Roboto', sans-serif;
+     font-size: 28px;
+}
+.modalconteudo p{
+     text-align: center;
+     padding:10px;
+     font-family: 'Roboto', sans-serif;
+     color: #444444;
+     font-size: 18px;
+}
+.details {
+     font-family: 'Roboto', sans-serif;
+     text-align: center;
+     margin-top: 25px;
+     font-size: 18px;
+     border:black solid 1px;
+     border-radius:15px;
+     margin: 10px 150px;
+     cursor: pointer;
+}
+.details:hover{
+     color: #EEEEEE;
+     background: black;
+}
+.fechar {
+     font-family: 'Roboto', sans-serif;
+     text-align: center;
+     color: #999999;
+     padding-top: 20px;
+     cursor: pointer;
+}
+/* recipe */
+.main_recipe {
+     width: 940px;
+     margin: 0 auto;
+     animation:AnimaçãoUp 1000ms;
+}
+
+.image_page_recipe img{
+     position: relative;
+     width: 100%;
+     height: 400px;
+     object-fit: cover;
+     border-radius: 15px;
+     margin-bottom: 30px;
+}
+.title_author {
+     text-align: center;
+     margin-bottom: 50px;
+}
+.title_author h1{
+     font-family: 'Roboto', sans-serif;
+     margin-bottom:5px;
+     font-size: 36px;
+}
+.title_author p{
+     font-family: 'Roboto', sans-serif;
+     font-size: 20px;
+     color: #777777;
+}
+.ingredients{
+     margin-bottom: 40px;
+}
+.title_ingredients {
+     display: grid;
+     grid-template-columns: 1fr 6fr;
+     gap: 5px;
+     align-items: baseline;
+}
+.title_ingredients h1{
+     font-family: 'Roboto', sans-serif;
+     font-size: 24px;
+     margin-bottom: 20px;
+}
+
+
+.preparation{
+     font-family: 'Roboto', sans-serif;
+     display: grid;
+     grid-template-columns: 1fr 4fr;
+     align-items: baseline;
+}
+.preparation_main {
+     margin-bottom: 50px;
+}
+.preparation h1{
+     font-size: 24px;
+     margin-bottom: 20px;
+}
+.more_info_recipe{
+     margin-bottom: 100px;
+}
+.more_info_recipe_title {
+     font-family: 'Roboto', sans-serif;
+     display: grid;
+     grid-template-columns:3fr 8fr;  
+     align-items: baseline;
+     
+}
+.more_info_recipe h1{
+     font-family: 'Roboto', sans-serif;
+     font-size: 24px;
+}
+.more_info_recipe_title{
+     margin-bottom: 20px;
+}
+
+/* button */
+
+.content_ingredients,
+.content_preparation,
+.content_more_recipe{
+     font-family: 'Roboto', sans-serif; 
+     line-height: 28px;
+     font-size: 16px;
+     color: #444444;
+     text-align: justify;
+}
+
+.content_ingredients ul,
+.content_preparation ul{
+     margin-left:20px ;
+}
+
+.hide {
+     visibility: hidden;
+     height: 0px;
+}
+
+.button_more_recipe_hide,
+.button_preparation_hide,
+.button_ingredients_hide{
+     font-family: 'Roboto', sans-serif;
+     font-size: 12px;
+     color: #999999;
+     cursor: pointer;
+     text-transform: uppercase;
+}
+/* Chefs */
+.global{
+     animation:AnimaçãoUp 1000ms;
+     box-sizing: border-box;
+     display: flex;
+     justify-content: center;
+     width:100vw;
+ }
+ .chefs{
+     width: 940px;
+     box-sizing: border-box;
+ }
+.chefs_cards{
+     display: grid;
+     grid-template-columns: 1fr 1fr 1fr 1fr ;
+ }
+ .chef_card{
+     display: flex;
+     margin-bottom: 30px;
+ }
+ .image_card_chef img{
+     width: 64px;
+     height: 64px;
+     border-radius: 50%;
+     object-fit: cover;
+ }
+ .name_chef{
+     box-sizing: border-box;
+     margin: 10px 10px 10px 20px;
+ }
+ .name_chef p{
+     margin-bottom: 5px;
+     font-weight: 500;
+     font-size: 18px;
+     font-family: 'Roboto', sans-serif;
+ 
+ }
+ .name_chef p:last-child{
+     font-family: 'Roboto', sans-serif;
+     font-size: 14px;
+     color:#666666;
+     font-weight: 500;
+ }
+ /* Filter */
+ button[type="submit"],
+.button{
+    background-color: #6558C3 ;
+    color: #FFFFFF;
+    font-size: 16px;
+    padding: 9px 20px;
+    text-decoration: none;
+    font-family: 'Roboto-Bold', sans-serif;
+    font-weight: bold;
+    border-radius: 4px;
+    outline: none;
+    
+}
+header form{
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     gap: 10px;
+
+}
+header form input{
+     padding: 4px 8px;
+     box-sizing: border-box;
+     height: 100%;
+     border: 1px solid #DDDDDD;
+     border-radius: 4px;
+     outline: none;
+}
+/* pagination */
+.pagination{
+     width: 100%;
+     display: flex;
+     justify-content: center;
+}
+.pagination a,
+.pagination span{
+     font-family: 'Roboto-Bold', sans-serif;
+     font-size: 18px;
+     text-decoration: none;
+     margin-right: 16px;
+     color: #111111;
+}
+.pagination a:hover{
+     color: #878787;
+     border-bottom: 2px solid #878787;;
+}
+/* results */
+.results{
+     margin-bottom: 20px;
+}
+.results p{
+     font-family: 'Roboto-bold', sans-serif;
+     font-weight: bolder;
+     font-size: 24px;
+     color: #111111;
+}

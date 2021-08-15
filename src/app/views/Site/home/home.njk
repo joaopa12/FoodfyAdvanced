@@ -1,0 +1,52 @@
+{% extends "Site/layout.njk" %}
+{% block content %}
+    <div class="main">
+        <div class="main_info">
+            <h1>As melhores receitas</h1>
+            <p>Aprenda a construir os melhores pratos com receitas criadas por profissionais do mundo inteiro.
+            </p>
+        </div>
+        <div class="image_main">
+            <img src="/assets/chef.png" alt="">
+        </div>
+    </div>
+    <div class="Highlights">
+        <div class="Highlights_title">
+            <h1>Mais acessadas</h1>
+        </div>
+        <section class="cards">
+            {% for recipe in recipes %}     
+                    <div class="card" image="{{recipe.image.src}}" id="{{recipe.id}}">
+                        <div class="card_image">
+                            <img src="{{recipe.image.src}}" alt="">
+                        </div>
+                        <div class="card_title">
+                            <h1>{{recipe.title}}</h1>
+                        </div>
+                        <div class="card_description">
+                            <p>{% for chef in chefsOptions %}
+                   {% if recipe.chef_id === chef.id %}por {{ chef.name }}{% endif %}
+                   {% endfor %}</p>
+                        </div>
+                    </div>
+            {% endfor %}
+        </section>
+    </div>
+  
+    <div class="modal_overlay" >
+        <div class="modal">
+            <div class="modalconteudo">
+                <img src="" alt="">
+                <h1>Test</h1>
+                <p>Test</p>
+            </div>
+            <div class="details">
+                <p>Mais informações</p>
+            </div>
+            <div class="fechar">
+                <p>Fechar Modal</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

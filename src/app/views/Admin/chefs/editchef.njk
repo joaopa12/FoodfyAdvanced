@@ -1,0 +1,51 @@
+{% extends "Admin/layout.njk" %}
+{% block content %}
+    <div class="create_content">
+        <div class="forms">
+            <form action="/admin/Chefs?_method=PUT" method="post" enctype="multipart/form-data">
+                <div class="create_header">
+                    <p>Criando Chef</p>
+                    <input type="hidden" name="id" value="{{Chef.id}}">
+                    <button type="submit">Salvar Chef</button>
+                </div>
+                <div class="fields">
+                    <div class="item">
+                        <p>Nome do Chef</p>
+                        <div>
+                            <input type="text" name="name" value="{{ Chef.name }}">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="titles_upload">
+                            <p>Adicionar</p>
+                            <p>Avatar Selecionado</p>
+                        </div>
+                        <div >
+                            <div class="photos">
+                                <div id="photos-upload">
+                                    <input type="file" name="photos" id="photos-input" multiple="multiple" onchange="PhotosUpload.handleFileInput(event)" accept="image/*">
+                                    <i class="material-icons">add</i>
+                                </div>
+                                <div id="photos-preview-select">
+                                    {% if files %}
+                                        {% for image in files %}
+                                            <div class="photo" id="{{image.file_id}}">
+                                                <img src="{{image.src}}" alt="{{image.name}}">
+                                                <i class="material-icons" onclick="PhotosUpload.removeOldPhoto(event)">close</i>
+                                            </div>
+                                        {% endfor %}
+                                        <input type="hidden" name="removed_files">
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form id="form-delete-chef" action="/admin/Chefs?_method=DELETE" method="POST">
+                <input type="hidden" name="id" value="{{ Chef.id }}">
+                <button type="submit">Deletar</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
