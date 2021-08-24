@@ -25,6 +25,11 @@ const Base = {
 
         return this
      },
+     async find(id){
+        const results = await find({ where: {id} }, this.table)
+
+        return results.rows[0]
+     }
 
 }
 
