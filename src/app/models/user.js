@@ -1,7 +1,10 @@
 const db = require('../../config/db')
 const { hash } = require('bcryptjs')
 
+const Base = require('./base')
+
 module.exports = {
+       ...Base,
        async findOne(filters){
              let query = `SELECT * FROM users`
 

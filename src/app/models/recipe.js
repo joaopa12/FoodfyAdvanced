@@ -1,7 +1,10 @@
 const db = require('../../config/db')
 const { date } = require('../../lib/utils')
 
+const Base = require('./base')
+
 module.exports = {
+    ...Base,
     all(){
         return db.query(`SELECT * FROM recipes`)
     },

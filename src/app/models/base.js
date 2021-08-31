@@ -1,4 +1,3 @@
-const { findOne, findAll, create, update } = require('../../../../Modulo-8/src/app/models/Base')
 const db = require('../../config/db')
 
 function find(filters, table){
