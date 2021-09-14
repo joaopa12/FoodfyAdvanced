@@ -1,5 +1,4 @@
 const Chef = require("../models/chef")
-const File = require("../models/file")
 const Recipe = require("../models/recipe")
 
 module.exports = {
