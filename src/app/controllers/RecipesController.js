@@ -1,3 +1,4 @@
+const Chef = require("../models/chef")
 const Recipe = require("../models/recipe")
 const File = require("../models/file")
 
@@ -28,8 +29,7 @@ module.exports = {
         return res.render("Admin/recipes/index", { chefsOptions, recipes: EachRecipe })
     },
     async create(req, res) {
-
-        let results = await Recipe.chefsOption()
+        let results = await Chef.findAll()
         const chefsOptions = results.rows
 
         return res.render("Admin/recipes/create", { chefsOptions })
