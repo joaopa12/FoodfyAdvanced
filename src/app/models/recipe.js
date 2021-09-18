@@ -3,6 +3,8 @@ const { date } = require('../../lib/utils')
 
 const Base = require('./base')
 
+Base.init({ table:'recipes'})
+
 module.exports = {
     ...Base,
     all(){

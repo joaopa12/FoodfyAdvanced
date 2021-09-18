@@ -7,10 +7,8 @@ module.exports = {
     async index(req, res) {
         try {
             const chefsOptions = await Chef.findAll()
-            console.log(chefsOptions)
 
-            results = await Recipe.all()
-            let recipes = results.rows
+            const recipes = await Recipe.findAll()
     
             const recipesPromise = recipes.map(async recipe => {
                 results = await Recipe.RecipeFiles(recipe.id)
