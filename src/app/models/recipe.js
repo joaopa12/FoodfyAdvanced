@@ -7,9 +7,6 @@ Base.init({ table:'recipes'})
 
 module.exports = {
     ...Base,
-    all(){
-        return db.query(`SELECT * FROM recipes`)
-    },
     create(data, user_id){
         const query = `
            INSERT INTO recipes(
@@ -35,12 +32,8 @@ module.exports = {
 
         return db.query(query , values)
     },
-    async find(id){
-        return db.query(`SELECT * FROM recipes WHERE id = $1`, [id])
-    },
-    chefsOption(){
-        return db.query(`SELECT name, id FROM chefs`)
-    },
+ 
+ 
     update(data){
         const query = `
         UPDATE recipes SET 

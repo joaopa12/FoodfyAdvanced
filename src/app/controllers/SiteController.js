@@ -8,8 +8,7 @@ module.exports = {
         limit = limit || 6
         let offset = limit * (page - 1)
 
-        let results = await Recipe.chefsOption()
-        const chefsOptions = results.rows
+        const chefsOptions = await Chef.findAll()
 
         const params = {
             filter,
@@ -47,8 +46,7 @@ module.exports = {
         limit = limit || 6
         let offset = limit * (page - 1)
 
-        let results = await Recipe.chefsOption()
-        const chefsOptions = results.rows
+        const chefsOptions = await Chef.findAll()
 
         const params = {
             filter,
@@ -89,8 +87,7 @@ module.exports = {
         limit = limit || 6
         let offset = limit * (page - 1)
 
-        let results = await Recipe.chefsOption()
-        const chefsOptions = results.rows
+        const chefsOptions = await Chef.findAll()
 
         const params = {
             filter,
