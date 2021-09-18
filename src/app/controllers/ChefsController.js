@@ -4,8 +4,7 @@ const Recipe = require("../models/recipe")
 
 module.exports = {
     async chefsAdmin(req, res) {
-        let results = await Chef.all()
-        const Chefs = results.rows
+        const Chefs = await Chef.findAll()
 
         const chefsPromise = Chefs.map(async chef => {
             results = await Chef.Getfiles(chef.id)
