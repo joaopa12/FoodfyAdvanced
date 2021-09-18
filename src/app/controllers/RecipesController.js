@@ -5,28 +5,34 @@ const File = require("../models/file")
 
 module.exports = {
     async index(req, res) {
-        let results = await Recipe.chefsOption()
-        const chefsOptions = results.rows
+        try {
+            const chefsOptions = await Chef.findAll()
+            console.log(chefsOptions)
 
-        results = await Recipe.all()
-        let recipes = results.rows
-
-        const recipesPromise = recipes.map(async recipe => {
-            results = await Recipe.RecipeFiles(recipe.id)
-
-            const files = results.rows.map(file => ({
-                ...file,
-                src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-            }))
-
-            recipe.image = files[0]
-
-            return recipe
-        })
-
-        const EachRecipe = await Promise.all(recipesPromise)
-
-        return res.render("Admin/recipes/index", { chefsOptions, recipes: EachRecipe })
+            results = await Recipe.all()
+            let recipes = results.rows
+    
+            const recipesPromise = recipes.map(async recipe => {
+                results = await Recipe.RecipeFiles(recipe.id)
+    
+                const files = results.rows.map(file => ({
+                    ...file,
+                    src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+                }))
+    
+                recipe.image = files[0]
+    
+                return recipe
+            })
+    
+            const EachRecipe = await Promise.all(recipesPromise)
+    
+            return res.render("Admin/recipes/index", { chefsOptions, recipes: EachRecipe })
+            
+        } catch (error) {
+            console.error(error)
+        }
+       
     },
     async create(req, res) {
         let results = await Chef.findAll()
