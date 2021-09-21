@@ -146,8 +146,7 @@ module.exports = {
         return res.render("Site/recipes/receita", { chefsOptions, recipe, files })
     },
     async chefs(req, res) {
-        let results = await Chef.all()
-        const Chefs = results.rows
+        const Chefs = await Chef.findAll()
 
         const chefsPromise = Chefs.map(async chef => {
             results = await Chef.Getfiles(chef.id)
