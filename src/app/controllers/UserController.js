@@ -8,33 +8,46 @@ function createPassword() {
 
 module.exports = {
     async list(req, res) {
-        const users = await User.findAll()
+        try {
+            const users = await User.findAll()
 
-        const user = req.session.userId.id
-        
-        const error = req.session.error
+            const user = req.session.userId.id
 
-        return res.render("Admin/user/index.njk", { users, user, error })
+            const error = req.session.error
+
+            return res.render("Admin/user/index.njk", { users, user, error })
+        } catch (error) {
+            console.error(error)
+        }
     },
     async edit(req, res) {
-        const { id } = req.params
+        try {
+            const { id } = req.params
 
-        const user = await User.find(id)
+            const user = await User.find(id)
 
-        const error = req.session.error
+            const error = req.session.error
 
-        return res.render('Admin/user/edit.njk', { user, error })
+            return res.render('Admin/user/edit.njk', { user, error })
+        } catch (error) {
+            console.error(error)
+        }
+
     },
     registerForm(req, res) {
         return res.render("Admin/user/register.njk")
     },
     async show(req, res) {
-        const userId = await User.find(req.session.userId)
-        
-        const error = req.session.error
-        req.session.error = "";
+        try {
+            const userId = await User.find(req.session.userId)
+
+            const error = req.session.error
+            req.session.error = "";
     
-        return res.render('Admin/user/show.njk', { user: userId, error })
+            return res.render('Admin/user/show.njk', { user: userId, error })
+        } catch (error) {
+            console.error(error)
+        } 
     },
     async post(req, res) {
         const password = createPassword()
@@ -42,7 +55,7 @@ module.exports = {
         const userId = await User.create(req.body, password)
 
         await mailer.sendMail({
-            to:req.body.email,
+            to: req.body.email,
             from: 'no-reply@Foodfy.com',
             subject: 'Cadastrado Foodfy',
             html: `<h2>Cadastrado Foodfy</h2>
@@ -54,7 +67,7 @@ module.exports = {
         })
 
         req.session.userId = userId
-    
+
         return res.redirect(`/admin/users/${userId}`)
     },
     async update(req, res) {
