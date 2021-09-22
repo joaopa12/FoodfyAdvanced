@@ -52,9 +52,6 @@ module.exports = {
               console.error(err)
            }
        },
-       async find(id){
-           return db.query(`SELECT users.* FROM users WHERE id = $1`, [id])
-       },
        async update(id , fields){
         try{
             let query = "UPDATE users SET"

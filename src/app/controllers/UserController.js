@@ -19,8 +19,7 @@ module.exports = {
     async edit(req, res) {
         const { id } = req.params
 
-        let results = await User.find(id)
-        const user = results.rows[0]
+        const user = await User.find(id)
 
         const error = req.session.error
 
