@@ -8,8 +8,7 @@ function createPassword() {
 
 module.exports = {
     async list(req, res) {
-        let results = await User.all()
-        const users = results.rows
+        const users = await User.findAll()
 
         const user = req.session.userId.id
         
