@@ -29,11 +29,8 @@ module.exports = {
         return res.render("Admin/user/register.njk")
     },
     async show(req, res) {
-        let results = await User.find(req.session.userId)
-        const userId = results.rows[0]
-
-        req.session.userId = userId.id
-
+        const userId = await User.find(req.session.userId)
+        
         const error = req.session.error
         req.session.error = "";
     
