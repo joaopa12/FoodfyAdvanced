@@ -82,21 +82,20 @@ module.exports = {
     },
     async update(req, res) {
         try {
-            
+            const { user } = req
+
+            let { name, email, is_admin } = req.body
+
+            await User.update(user.id, {
+                name,
+                email,
+                is_admin
+            })
+
+            return res.redirect('/admin/users')
         } catch (error) {
             console.error(error)
         }
-        const { user } = req
-
-        let { name, email, is_admin } = req.body
-
-        await User.update(user.id, {
-            name,
-            email,
-            is_admin
-        })
-
-        return res.redirect('/admin/users')
     },
     async delete(req, res) {
         const { id } = req.body
