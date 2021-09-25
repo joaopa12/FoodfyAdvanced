@@ -81,6 +81,11 @@ module.exports = {
         }
     },
     async update(req, res) {
+        try {
+            
+        } catch (error) {
+            console.error(error)
+        }
         const { user } = req
 
         let { name, email, is_admin } = req.body
