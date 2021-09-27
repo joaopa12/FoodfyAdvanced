@@ -1,5 +1,9 @@
+ const { unlinkSync } = require('fs')
+
 const User = require('../models/user')
+const Recipe = require('../models/recipe')
 const mailer = require('../../lib/mailer')
+const user = require('../models/user')
 
 function createPassword() {
     const password = Math.random().toString(36).substr(2)
@@ -98,10 +102,34 @@ module.exports = {
         }
     },
     async delete(req, res) {
-        const { id } = req.body
+        try {
+            const recipes = await Recipe.findAll({where:{user_id:req.body.id}})
 
-        User.delete(id)
-
-        return res.redirect('/admin/users')
+            const allFilesPromise = recipes.map(recipe => Recipe.files(recipe.id))
+    
+            let promiseResults = await Promise.all(allFilesPromise)
+    
+            User.delete(req.body.id)
+            req.session.destroy()
+    
+            promiseResults.map(files => {
+                files.map(file =>{
+                    try{
+                        unlinkSync(file.path)
+                    } catch(err){
+                        console.error(err)
+                    }
+                })
+            })
+    
+            return res.render("Admin/session/login.njk", {
+                sucess:"Conta Deletada com sucesso"
+            })
+        } catch (error) {
+            return res.render("/admin/users/",{
+                user: req.body,
+                error:"Erro ao tentar deletar sua conta!"
+            })
+        }
     }
 }
