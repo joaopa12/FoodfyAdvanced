@@ -7,23 +7,6 @@ Base.init({ table:'users' })
 
 module.exports = {
        ...Base,
-       async findOne(filters){
-             let query = `SELECT * FROM users`
-
-             Object.keys(filters).map(key => {
-                 query = `${query} ${key}`
-
-                 Object.keys(filters[key]).map(field => {
-                     query = `${query} ${field} = '${filters[key][field]}'`
-                 })
-             })
-
-             const results = await db.query(query)
-             return results.rows[0]
-       },
-       async all(){
-           return db.query(`SELECT * FROM users`)
-       },
        async create(data, password){
            try{
               const query = `
@@ -72,7 +55,4 @@ module.exports = {
             console.error(err)
          }
        },
-       async delete(id){
-           return db.query(`DELETE FROM users WHERE id = $1`,[id])
-       }
 }

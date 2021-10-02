@@ -3,7 +3,6 @@
 const User = require('../models/user')
 const Recipe = require('../models/recipe')
 const mailer = require('../../lib/mailer')
-const user = require('../models/user')
 
 function createPassword() {
     const password = Math.random().toString(36).substr(2)
