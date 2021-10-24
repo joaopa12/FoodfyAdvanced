@@ -7,14 +7,14 @@ const File = require('./src/app/models/file')
 const user = require('./src/app/models/user')
 
 let usersIds = []
-let totalProducts = 10
+let totalRecipes = 10
 let totalUsers = 3
 
-async function createUsers(){
+async function createUsers() {
     const users = []
     const password = await hash('123', 5)
 
-    while(users.length < totalUsers){
+    while (users.length < totalUsers) {
         users.push({
             name: faker.name.title(),
             email: faker.name.email(),
@@ -28,7 +28,40 @@ async function createUsers(){
     usersIds = await Promise.all(usersPromise)
 }
 
-async function init(){
+async function createRecipes() {
+    let recipes = []
+
+    while (recipes.length < totalRecipes) {
+        recipes.push({
+            chef_id:  Math.ceil(Math.random() * 3),
+            user_id: usersIds[Math.floor(Math.random() * totalUsers)],
+            title:faker.name.title(),
+            ingredients:faker.lorem.paragraph(Math.ceil(Math.random() * 10)),
+            preparation:faker.lorem.paragraph(Math.ceil(Math.random() * 10)),
+            information:faker.lorem.paragraph(Math.ceil(Math.random() * 10)),
+        })
+    }
+
+    const recipesPromise = recipes.map(recipe => Recipe.create(recipe))
+
+    recipesIds = await Promise.all(recipesPromise)
+
+    let files = []
+
+    while(files.length < 8){
+       files.push({
+           name:faker.image.image(),
+           path:`public/images/placeholder.png`,
+           product_id: productsIds[Math.floor(Math.random() * totalProducts)]
+       })
+    }
+
+    const filesPromise = files.map(file => File.create(file))
+
+    await Promise.all(filesPromise)
+}
+
+async function init() {
     await createUsers()
 }
 
