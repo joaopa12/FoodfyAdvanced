@@ -40,9 +40,8 @@ function isLoggedRedirectToUsers(req, res, next){
 }
 
 async function RecipeOwner(req,res, next){
-     let results = await Recipe.find(req.params.id)
-     const recipe = results.rows[0]
-    
+    const recipe = await Recipe.find(req.params.id)
+
     if(req.session.userId !== recipe.user_id && req.session.isAdmin == false){
         return res.redirect('/admin/users/profile')
     }

@@ -33,24 +33,15 @@ module.exports = {
         return res.render("Admin/recipes/recipe", { chefsOptions, recipe, files:recipe.files })
     },
     async recipe_admin_edit(req, res) {
-        const { id } = req.params
+        const chefsOptions = await Chef.findAll()
 
-        let results = await Recipe.chefsOption()
-        const chefsOptions = results.rows
-
-        results = await Recipe.find(id)
-        const recipe = results.rows[0]
-
-        results = await Recipe.RecipeFiles(id)
-
-        const files = results.rows.map(file => ({
-            ...file,
-            src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-        }))
+        const recipe = await LoadRecipeService.load('recipe',{
+            where:{id:req.params.id}
+        })
 
         if (!recipe) return res.send("Receita não encontrada")
 
-        return res.render("Admin/recipes/edit", { chefsOptions, recipe, files })
+        return res.render("Admin/recipes/edit", { chefsOptions, recipe, files:recipe.files })
     },
     async post(req, res) {  
         const keys = Object.keys(req.body)

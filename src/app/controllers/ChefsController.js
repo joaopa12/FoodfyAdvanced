@@ -21,7 +21,6 @@ module.exports = {
             where:{id:req.params.id}
         })
         
-
         results = await Chef.findrecipes()
         const chef_recipes = results.rows
 
