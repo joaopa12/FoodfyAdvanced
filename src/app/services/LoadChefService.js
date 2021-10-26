@@ -14,6 +14,7 @@ async function getImages(chefId){
 async function format(chef){
     const files = await getImages(chef.id)
     chef.files = files
+    console.log(chef.files)
     chef.image = files[0]
 
     return chef

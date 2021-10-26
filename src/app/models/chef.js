@@ -7,13 +7,20 @@ Base.init({ table: 'chefs'})
 
 module.exports = {
     ...Base,
-    findrecipes() {
-        return db.query(`
-        SELECT chefs.*, COUNT (recipes) AS total_recipes
-        FROM chefs
-        LEFT JOIN recipes ON (chefs.id = recipes.chef_id)
-        GROUP BY chefs.id       
-        `)
+    async findrecipes() {
+        try {
+            const results = await db.query(`
+            SELECT chefs.*, COUNT (recipes) AS total_recipes
+            FROM chefs
+            LEFT JOIN recipes ON (chefs.id = recipes.chef_id)
+            GROUP BY chefs.id       
+            `)
+
+            return results.rows
+            
+        } catch (error) {
+            console.error(error)
+        }
     },
     async files(id) {
         try {

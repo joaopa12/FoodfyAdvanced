@@ -3,6 +3,7 @@ const File = require("../models/file")
 const Recipe = require("../models/recipe")
 
 const LoadChefService = require('../services/LoadChefService')
+const LoadRecipeService = require('../services/LoadRecipeService')
 
 module.exports = {
     async chefsAdmin(req, res) {
@@ -16,39 +17,15 @@ module.exports = {
 
     },
     async chefAdmin(req, res) {
-
         const chef = await LoadChefService.load('chef',{
             where:{id:req.params.id}
         })
         
-        results = await Chef.findrecipes()
-        const chef_recipes = results.rows
+        const chef_recipes = await Chef.findrecipes()
 
-        const recipes = await Recipe.findAll()
-
-        const recipesPromise = recipes.map(async recipe => {
-            results = await Recipe.RecipeFiles(recipe.id)
-
-            const files = results.rows.map(file => ({
-                ...file,
-                src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-            }))
-
-            recipe.image = files[0]
-
-            return recipe
-        })
-
-        const EachRecipe = await Promise.all(recipesPromise)
-
-        results = await Chef.Getfiles(chef.id)
-
-        const files = results.rows.map(file => ({
-            ...file,
-            src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-        }))
-
-        return res.render('Admin/chefs/chef', { Chef: chef, chef_recipes, recipes: EachRecipe })
+        const recipes = await LoadRecipeService.load('recipes')
+    
+        return res.render('Admin/chefs/chef', { Chef:chef, chef_recipes, recipes })
     },
     async chefAdmin_edit(req, res) {
         const Chef = await LoadChefService.load('chef',{
