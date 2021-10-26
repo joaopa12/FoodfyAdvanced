@@ -25,11 +25,11 @@ const LoadService = {
 
        return this[service]()
    },
-   async chef(){
+   async recipe(){
        try {
-           const chef = await Chef.findOne(this.filter)
+           const recipe = await Recipe.findOne(this.filter)
 
-           return format(chef)
+           return format(recipe)
        } catch (error) {
            console.error(error)
        }
