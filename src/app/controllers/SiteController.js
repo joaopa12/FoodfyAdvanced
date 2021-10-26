@@ -1,6 +1,8 @@
 const Chef = require("../models/chef")
 const Recipe = require("../models/recipe")
 
+const LoadRecipeService = require('../services/LoadRecipeService')
+
 module.exports = {
     async home(req, res) {
         let { filter, page, limit } = req.query
@@ -16,25 +18,12 @@ module.exports = {
             offset
         }
 
-        results = await Recipe.paginate(params)
-        const recipes = results.rows
+        const recipesParams = await Recipe.paginate(params)
+        const recipesParamsFormat = recipesParams.map(recipe => LoadRecipeService.format(recipe))
 
-        const recipesPromise = recipes.map(async recipe => {
-            results = await Recipe.RecipeFiles(recipe.id)
+        const recipes = await Promise.all(recipesParamsFormat)
 
-            const files = results.rows.map(file => ({
-                ...file,
-                src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-            }))
-
-            recipe.image = files[0]
-
-            return recipe
-        })
-
-        const EachRecipe = await Promise.all(recipesPromise)
-
-        return res.render("Site/home/home", { chefsOptions, recipes:EachRecipe , filter })
+        return res.render("Site/home/home", { chefsOptions, recipes , filter })
     },
     about(req, res) {
         return res.render("Site/home/sobre")

@@ -39,7 +39,7 @@ module.exports = {
             
             const results = await db.query(query, [limit,offset])
 
-            return results
+            return results.rows
         }
         catch(err){
             console.error(err)

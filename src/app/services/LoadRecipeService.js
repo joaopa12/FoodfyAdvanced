@@ -28,7 +28,6 @@ const LoadService = {
    async recipe(){
        try {
            const recipe = await Recipe.findOne(this.filter)
-           console.log(recipe)
            return format(recipe)
        } catch (error) {
            console.error(error)
@@ -44,7 +43,8 @@ const LoadService = {
        } catch (error) {
            console.error(error)
        }
-   }
+   },
+   format
 }
 
 module.exports = LoadService
