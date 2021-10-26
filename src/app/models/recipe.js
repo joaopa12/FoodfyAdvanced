@@ -86,7 +86,7 @@ module.exports = {
         }
             
     },
-     async RecipeFiles(id){
+     async files(id){
         try {
             const results = await db.query(`SELECT * 
             FROM files
@@ -94,7 +94,7 @@ module.exports = {
             ON (files.id = recipe_files.file_id)
             WHERE recipe_files.recipe_id = $1`, [id])
             
-            return results
+            return results.rows
         } catch(err){
             console.log(err)
         }

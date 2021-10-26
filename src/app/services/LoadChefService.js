@@ -1,7 +1,7 @@
 const Recipe = require('../models/recipe')
 const Chef = require('../models/chef')
 
-async function getImage(chefId){
+async function getImages(chefId){
     let files = await Chef.files(chefId)
     files = files.map(file => ({
         ...file,
@@ -12,7 +12,7 @@ async function getImage(chefId){
 }
 
 async function format(chef){
-    const files = await getImage(chef.id)
+    const files = await getImages(chef.id)
     chef.files = files
     chef.image = files[0]
 

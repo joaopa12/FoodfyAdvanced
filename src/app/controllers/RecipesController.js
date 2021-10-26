@@ -2,30 +2,16 @@ const Chef = require("../models/chef")
 const Recipe = require("../models/recipe")
 const File = require("../models/file")
 
+const LoadRecipeService = require('../services/LoadRecipeService')
 
 module.exports = {
     async index(req, res) {
         try {
             const chefsOptions = await Chef.findAll()
 
-            const recipes = await Recipe.findAll()
+            const recipes = await LoadRecipeService.load('recipes')
     
-            const recipesPromise = recipes.map(async recipe => {
-                results = await Recipe.RecipeFiles(recipe.id)
-    
-                const files = results.rows.map(file => ({
-                    ...file,
-                    src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-                }))
-    
-                recipe.image = files[0]
-    
-                return recipe
-            })
-    
-            const EachRecipe = await Promise.all(recipesPromise)
-    
-            return res.render("Admin/recipes/index", { chefsOptions, recipes: EachRecipe })
+            return res.render("Admin/recipes/index", { chefsOptions, recipes })
             
         } catch (error) {
             console.error(error)
@@ -33,8 +19,7 @@ module.exports = {
        
     },
     async create(req, res) {
-        let results = await Chef.findAll()
-        const chefsOptions = results.rows
+        const chefsOptions = await Chef.findAll()
 
         return res.render("Admin/recipes/create", { chefsOptions })
     },
