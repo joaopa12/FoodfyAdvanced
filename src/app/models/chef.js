@@ -15,7 +15,7 @@ module.exports = {
         GROUP BY chefs.id       
         `)
     },
-    async Getfiles(id) {
+    async files(id) {
         try {
             const results = await db.query(`SELECT * 
             FROM files 
@@ -23,7 +23,7 @@ module.exports = {
             ON (files.id = chefs.file_id)
             WHERE chefs.id = $1`, [id])
 
-            return results
+            return results.rows
         } catch (err) {
             console.log(err)
         }

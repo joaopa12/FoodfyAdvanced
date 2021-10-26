@@ -2,36 +2,30 @@ const Chef = require("../models/chef")
 const File = require("../models/file")
 const Recipe = require("../models/recipe")
 
+const LoadChefService = require('../services/LoadChefService')
+
 module.exports = {
     async chefsAdmin(req, res) {
-        const Chefs = await Chef.findAll()
+        try {
+            const Chefs = await LoadChefService.load('chefs')
 
-        const chefsPromise = Chefs.map(async chef => {
-            results = await Chef.Getfiles(chef.id)
+            return res.render("Admin/chefs/chefs", { Chefs })
+        } catch (error) {
+            console.error(error)
+        }
 
-            const files = results.rows.map(file => ({
-                ...file,
-                src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-            }))
-
-            chef.image = files[0]
-            return chef
-        })
- 
-        const EachChef = await Promise.all(chefsPromise)
-
-        return res.render("Admin/chefs/chefs", { Chefs: EachChef })
     },
     async chefAdmin(req, res) {
 
-        results = await Chef.find(req.params.id)
-        const chef = results.rows[0] // Não colocar Chef porque buga , já que é o mesmo que o Chef do model
+        const chef = await LoadChefService.load('chef',{
+            where:{id:req.params.id}
+        })
+        
 
         results = await Chef.findrecipes()
         const chef_recipes = results.rows
 
-        results = await Chef.allrecipes()
-        const recipes = results.rows
+        const recipes = await Recipe.findAll()
 
         const recipesPromise = recipes.map(async recipe => {
             results = await Recipe.RecipeFiles(recipe.id)
@@ -49,28 +43,20 @@ module.exports = {
         const EachRecipe = await Promise.all(recipesPromise)
 
         results = await Chef.Getfiles(chef.id)
-        
+
         const files = results.rows.map(file => ({
             ...file,
             src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
         }))
 
-        return res.render('Admin/chefs/chef', { Chef: chef, chef_recipes, recipes: EachRecipe, files })
+        return res.render('Admin/chefs/chef', { Chef: chef, chef_recipes, recipes: EachRecipe })
     },
     async chefAdmin_edit(req, res) {
-        const { id } = req.params
+        const Chef = await LoadChefService.load('chef',{
+            where:{id:req.params.id}
+        })
 
-        let results = await Chef.find(id)
-        const chef = results.rows[0]
-
-        results = await Chef.Getfiles(chef.id)
-        
-        const files = results.rows.map(file => ({
-            ...file,
-            src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-        }))
-
-        return res.render('Admin/chefs/editchef', { Chef:chef , files })
+        return res.render('Admin/chefs/editchef', { Chef, files:Chef.files})
     },
     chefsCreate(req, res) {
         return res.render('Admin/chefs/createChef')
@@ -113,7 +99,7 @@ module.exports = {
 
         if (req.files.length != 0) {
             const oldFiles = await Chef.Getfiles(chef_id.file_id)
-        
+
             const totalFiles = oldFiles.rows.length + req.files.length
 
             if (totalFiles < 2) {
@@ -134,13 +120,13 @@ module.exports = {
             if (req.files.length == 0) {
                 return res.send('Envie pelo menos uma imagem!')
             }
-            
-            await Chef.update(req.body,file_id)
+
+            await Chef.update(req.body, file_id)
 
             await removedFiles.map(id => File.chefDelete(id))
         }
 
-        await Chef.update(req.body,file_id)
+        await Chef.update(req.body, file_id)
 
         return res.redirect(`/admin/Chefs/${chef_id}`)
     },
