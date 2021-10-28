@@ -79,9 +79,9 @@ module.exports = {
         }
 
         if (req.files.length != 0) {
-            const oldFiles = await Recipe.RecipeFiles(req.body.id)
+            const oldFiles = await Recipe.files(req.body.id)
 
-            const totalFiles = oldFiles.rows.length + req.files.length
+            const totalFiles = oldFiles.length + req.files.length
 
             if (totalFiles <= 6) {
                 const recipe_id = req.body.id

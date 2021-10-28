@@ -84,6 +84,7 @@ module.exports = {
             })
 
             await removedFiles.map(id => File.chefDelete(id))
+            await Promise.all(removedFiles)
         }
 
         await Chef.update(req.body.id, {
