@@ -1,0 +1,20 @@
+{% extends "Admin/session/layout.njk" %}
+{% block content %}
+<div class="session_content">
+    <div class="session_form">
+        <form action="/admin/users/forgot-password" method="post">
+            <div class="session_header">
+                <p>Esqueceu a Senha?</p>
+            </div>
+            <div class="fields forgot">
+                <div class="item">
+                    <p>Email</p>
+                    <div>
+                        <input type="text" name="email" value="" placeholder="Digite seu email" onblur="Validate.apply(this, 'isEmail')">
+                    </div>
+                    <div class="session_buttons">
+                        <button type="submit">Enviar</button>
+                    </div>
+                    </form>
+                </div>
+{% endblock%} 

@@ -1,0 +1,42 @@
+@keyframes AnimaçãoUp{
+    0%{
+       opacity:0;
+       transform: translateY(15px);
+    }
+    100%{
+       opacity:1;  
+    }
+}
+
+.content-sucess a{
+    color: rgb(62, 151, 44);
+    text-decoration: none;
+}
+
+.content-sucess p{
+    padding-bottom: 8px;
+}
+
+.confirmation-content{
+    animation:AnimaçãoUp 1000ms;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    margin: 0 auto;
+    padding-bottom: 64px;
+    border-radius: 8px;
+    border: 1px solid #777;
+    
+}
+
+.sucess-lottie{
+    height: 400px;
+    
+}
+
+.confirmation-content h2{
+    font-size: 26px;
+    text-align: center;
+    padding:8px;
+}

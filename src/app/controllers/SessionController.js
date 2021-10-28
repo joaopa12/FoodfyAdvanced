@@ -22,8 +22,8 @@ module.exports = {
         return res.render("Admin/session/forgot-password")
     },
     async forgot(req,res){
-         const user = req.user
-
+        const user = req.user
+        console.log(user) 
         //criação do token
         const token = crypto.randomBytes(20).toString("hex")
         
@@ -36,7 +36,7 @@ module.exports = {
             reset_token_expires: now
         })
         // enviar email com link de recuperação
-
+        
         await mailer.sendMail({
             to:user.email,
             from: 'no-reply@Foodfy.com',
@@ -51,7 +51,7 @@ module.exports = {
             `
         })
         
-        return res.render('Admin/session/forgot-password.njk', {
+        return res.render('Admin/session/forgot-confirmation.njk', {
             user:req.body,
             sucess:"Verifique seu Email!"
         })

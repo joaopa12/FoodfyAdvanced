@@ -19,6 +19,7 @@ routes.get('/forgot-password', SessionController.forgotForm)
 routes.post('/forgot-password',SessionValidator.forgot, SessionController.forgot)
 routes.get('/password-reset', SessionController.resetForm)
 routes.post('/password-reset', SessionValidator.reset, SessionController.reset) 
+routes.get('/forgot-confirmation', SessionController.forgot)
 
 // Usuário logado
 routes.get("/profile",onlyUsers,UserController.show)

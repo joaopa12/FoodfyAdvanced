@@ -1,0 +1,25 @@
+{% extends "Admin/session/layout.njk" %}
+{% block content %}
+<div class="confirmation-content">
+   <div class="content-sucess">
+    <div class="sucess-lottie"></div>
+    <h2>Email de Recuperação Enviado com sucesso</h2>
+    <p>
+        Verifique o Email cadastrado!
+    </p>
+    <a href="/">Retornar ao Foodfy</a>
+
+    <script src="/lottie.min.js" type="text/javascript"></script>
+    <script>
+        const element = document.querySelector('.sucess-lottie')
+        lottie.loadAnimation({
+            container: element, // the dom element that will contain the animation
+            renderer: 'svg',
+            loop: false,
+            autoplay: true,
+            path: '/57137-success-tick.json' // the path to the animation json
+        });
+    </script>
+    </div>
+</div>
+{% endblock%}
