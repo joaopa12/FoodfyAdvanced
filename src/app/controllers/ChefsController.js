@@ -52,16 +52,19 @@ module.exports = {
 
         const filePromise = req.files.map(file => File.create({ ...file }))
         let results = await filePromise[0]
-        const file_id = results.rows[0].id
+        let file_id = results.rows[0].id
 
-        results = await Chef.create(req.body, file_id)
-        const chefId = results.rows[0].id
+        let { name } = req.body
+
+        const chefId = await Chef.create({
+            name,
+            file_id
+        })
 
         return res.redirect(`/admin/Chefs/${chefId}`)
     },
     async put(req, res) {
         const keys = Object.keys(req.body)
-        const chef_id = req.body.id
 
         for (key of keys) {
 
@@ -70,8 +73,7 @@ module.exports = {
             }
         }
 
-        let results = await Chef.find(chef_id)
-        let file_id = results.rows[0].file_id
+        let file_id  = await Chef.find(req.body.id)
 
         if (req.files.length != 0) {
             const oldFiles = await Chef.Getfiles(chef_id.file_id)
