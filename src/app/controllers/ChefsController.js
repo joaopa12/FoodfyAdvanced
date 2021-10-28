@@ -38,11 +38,11 @@ module.exports = {
         return res.render('Admin/chefs/createChef')
     },
     async post(req, res) {
+        let { name } = req.body
+
         const filePromise = req.files.map(file => File.create({ ...file }))
         let results = await filePromise[0]
         let file_id = results.rows[0].id
-
-        let { name } = req.body
 
         const chefId = await Chef.create({
             name,

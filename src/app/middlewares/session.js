@@ -41,8 +41,9 @@ function isLoggedRedirectToUsers(req, res, next){
 
 async function RecipeOwner(req,res, next){
     const recipe = await Recipe.find(req.params.id)
-
+     
     if(req.session.userId !== recipe.user_id && req.session.isAdmin == false){
+        req.session.error = "Você não é o dono dessa Receita!"
         return res.redirect('/admin/users/profile')
     }
 
