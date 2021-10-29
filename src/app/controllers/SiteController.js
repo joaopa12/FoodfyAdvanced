@@ -93,20 +93,24 @@ module.exports = {
 
     },
     async recipe(req, res) {
-        const id = req.params.id;
+        try {
+            const id = req.params.id;
 
-        const chefsOptions = await Chef.findAll()
-
-        const recipe = await Recipe.findOne(id)
-
-        const filesRecipe = await Recipe.files(recipe.id)
-
-        const files = filesRecipe.map(file => ({
-            ...file,
-            src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-        }))
-
-        return res.render("Site/recipes/receita", { chefsOptions, recipe, files })
+            const chefsOptions = await Chef.findAll()
+    
+            const recipe = await Recipe.find(id)
+    
+            const filesRecipe = await Recipe.files(recipe.id)
+    
+            const files = filesRecipe.map(file => ({
+                ...file,
+                src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+            }))
+    
+            return res.render("Site/recipes/receita", { chefsOptions, recipe, files })
+        } catch (error) {
+            console.error(error)
+        } 
     },
     async chefs(req, res) {
         const ChefsFinds = await Chef.findrecipes()
