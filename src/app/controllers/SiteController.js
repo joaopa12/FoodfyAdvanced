@@ -2,6 +2,7 @@ const Chef = require("../models/chef")
 const Recipe = require("../models/recipe")
 
 const LoadRecipeService = require('../services/LoadRecipeService')
+const { format } = require('../services/LoadRecipeService')
 
 module.exports = {
     async home(req, res) {
@@ -44,26 +45,14 @@ module.exports = {
             offset
         }
 
-        results = await Recipe.paginate(params)
-        const recipes = results.rows
+        const recipes = await Recipe.paginate(params)
 
         const pagination = {
             total: Math.ceil(recipes[0].total / limit),
             page
         }
         
-        const recipesPromise = recipes.map(async recipe => {
-            results = await Recipe.RecipeFiles(recipe.id)
-
-            const files = results.rows.map(file => ({
-                ...file,
-                src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-            }))
-
-            recipe.image = files[0]
-
-            return recipe
-        })
+        const recipesPromise = recipes.map(format)
 
         const EachRecipe = await Promise.all(recipesPromise)
 
@@ -85,23 +74,10 @@ module.exports = {
             offset,
         }
 
-        results = await Recipe.paginateResults(params)
-        const recipes = results.rows
+        const recipesParams = await Recipe.paginateResults(params)
+        const recipesParamsFormat = recipesParams.map(recipe => LoadRecipeService.format(recipe))
 
-        const recipesPromise = recipes.map(async recipe => {
-            results = await Recipe.RecipeFiles(recipe.id)
-
-            const files = results.rows.map(file => ({
-                ...file,
-                src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-            }))
-
-            recipe.image = files[0]
-
-            return recipe
-        })
-
-        const EachRecipe = await Promise.all(recipesPromise)
+        const recipes = await Promise.all(recipesParamsFormat)
 
         if (recipes == 0) {
             const pagination = { page }
@@ -112,7 +88,7 @@ module.exports = {
                 total: Math.ceil(recipes[0].total / limit),
                 page,
             }
-            return res.render("Site/search/index", { chefsOptions, recipes:EachRecipe, pagination, filter })
+            return res.render("Site/search/index", { chefsOptions, recipes, pagination, filter })
         }
 
     },

@@ -1,5 +1,4 @@
 const Recipe = require('../models/recipe')
-const Chef = require('../models/chef')
 
 async function getImages(recipeId){
     let files = await Recipe.files(recipeId)

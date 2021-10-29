@@ -72,14 +72,14 @@ module.exports = {
             FROM recipes
             
             ${filterQuery}
-            ORDER BY updated_at DESC
+            ORDER BY created_at DESC
             LIMIT $1 OFFSET $2 
             
             `
             
             const results = await db.query(query, [limit,offset])
-
-            return results
+            
+            return results.rows
         }
         catch(err){
             console.error(err)
