@@ -95,15 +95,13 @@ module.exports = {
     async recipe(req, res) {
         const id = req.params.id;
 
-        let results = await Recipe.chefsOption()
-        const chefsOptions = results.rows
+        const chefsOptions = await Chef.findAll()
 
-        results = await Recipe.find(id)
-        const recipe = results.rows[0]
+        const recipe = await Recipe.findOne(id)
 
-        results = await Recipe.RecipeFiles(recipe.id)
+        const filesRecipe = await Recipe.files(recipe.id)
 
-        const files = results.rows.map(file => ({
+        const files = filesRecipe.map(file => ({
             ...file,
             src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
         }))
@@ -111,12 +109,12 @@ module.exports = {
         return res.render("Site/recipes/receita", { chefsOptions, recipe, files })
     },
     async chefs(req, res) {
-        const Chefs = await Chef.findAll()
+        const ChefsFinds = await Chef.findrecipes()
 
-        const chefsPromise = Chefs.map(async chef => {
-            results = await Chef.Getfiles(chef.id)
+        const chefsPromise = ChefsFinds.map(async chef => {
+            const chefsfiles = await Chef.files(chef.id)
 
-            const files = results.rows.map(file => ({
+            const files = chefsfiles.map(file => ({
                 ...file,
                 src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
             }))
@@ -125,8 +123,8 @@ module.exports = {
             return chef
         })
  
-        const EachChef = await Promise.all(chefsPromise)
+        const Chefs = await Promise.all(chefsPromise)
  
-        return res.render("Site/chefs/index", { Chefs: EachChef })
+        return res.render("Site/chefs/index", { Chefs })
     } 
 }

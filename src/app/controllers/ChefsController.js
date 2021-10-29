@@ -1,6 +1,5 @@
 const Chef = require("../models/chef")
 const File = require("../models/file")
-const Recipe = require("../models/recipe")
 
 const LoadChefService = require('../services/LoadChefService')
 const LoadRecipeService = require('../services/LoadRecipeService')
