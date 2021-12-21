@@ -1,4 +1,5 @@
 const db = require('../../config/db')
+const { date } = require('../../lib/utils')
 
 const Base = require('./base')
 
@@ -6,6 +7,33 @@ Base.init({ table:'recipes'})
 
 module.exports = {
     ...Base,
+    async create(data, user_id){
+        const query = `
+           INSERT INTO recipes(
+               chef_id,
+               user_id,
+               title,
+               ingredients,
+               preparation,
+               information,
+               created_at
+           ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+             RETURNING id
+        `
+        const values = [
+               data.chef_id, 
+               user_id,
+               data.title,
+               data.ingredients,
+               data.preparation,
+               data.information,
+               date(Date.now()).iso
+        ]
+
+        const results = await db.query(query , values)
+   
+        return results.rows[0].id
+    },
     async paginate(params){
         try{
             const { filter , limit, offset } = params

@@ -43,7 +43,9 @@ module.exports = {
 
         return res.render("Admin/recipes/edit", { chefsOptions, recipe, files:recipe.files })
     },
-    async post(req, res) {  
+    async post(req, res) {
+        let userRecipe = req.session.userId
+
         const keys = Object.keys(req.body)
 
         for (key of keys) {
@@ -54,9 +56,9 @@ module.exports = {
         if (req.files.length == 0) {
             return res.send('Porfavor pelo menos uma imagem!')
         }
-
-        let results = await Recipe.create(req.body, req.session.userId)
-        const recipe_id = results.rows[0].id
+        
+        const recipe_id = await Recipe.create(req.body, userRecipe)
+        console.log(recipe_id)
 
         const filesPromise = req.files.map(file => File.create({ ...file }))
 

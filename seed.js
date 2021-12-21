@@ -16,11 +16,11 @@ let totalUsers = 5
 let totalChefs = 5
 
 async function createChefs() {
-    let files = []
+    const files = []
 
-    while (files.length < 5) {
+    while (files.length < 10) {
         files.push({
-            name: faker.name.title(),
+            filename: faker.image.image(),
             path: `public/images/placeholder.png`,
         })
     }
@@ -28,7 +28,7 @@ async function createChefs() {
     const filesPromise = files.map(file => File.create(file))
 
     filesIds = await Promise.all(filesPromise)
-
+    
     const chefs = []
 
     while (chefs.length < totalChefs) {
@@ -37,9 +37,9 @@ async function createChefs() {
             file_id: filesIds[Math.floor(Math.random() * totalChefs)],
         })
     }
-
+    
     const chefsPromise = chefs.map(chef => Chef.create(chef))
-
+    
     chefsIds = await Promise.all(chefsPromise)
 }
 
@@ -65,8 +65,6 @@ async function createUsers() {
         })
     }
 
-    console.log(users)
-
     const usersPromise = users.map(user => User.create(user))
 
     usersIds = await Promise.all(usersPromise)
@@ -85,10 +83,12 @@ async function createRecipes() {
             information: faker.lorem.paragraph(Math.ceil(Math.random() * 10)),
         })
     }
+    console.log(recipes)
 
     const recipesPromise = recipes.map(recipe => Recipe.create(recipe))
 
     recipesIds = await Promise.all(recipesPromise)
+    console.log(recipesIds)
 
     let files = []
 
@@ -114,8 +114,6 @@ async function createRecipes() {
 
 
 async function init() {
-    await createUsers()
-    await createRecipes()
     await createChefs()
 }
 
