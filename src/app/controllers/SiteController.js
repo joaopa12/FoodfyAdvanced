@@ -8,7 +8,7 @@ module.exports = {
     async home(req, res) {
         let { filter, page, limit } = req.query
         page = page || 1
-        limit = limit || 6
+        limit = limit || 3
         let offset = limit * (page - 1)
 
         const chefsOptions = await Chef.findAll()
