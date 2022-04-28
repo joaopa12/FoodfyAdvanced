@@ -58,3 +58,10 @@ WITH (OIDS=FALSE);
 ALTER TABLE "session" 
 ADD CONSTRAINT "session_pkey" 
 PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+
+DROP TABLE recipe_files;
+DROP TABLE chefs;
+DROP TABLE recipes;
+DROP TABLE files;
+DROP TABLE session;
+DROP TABLE users;
