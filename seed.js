@@ -9,18 +9,18 @@ const Chef = require('./src/app/models/chef')
 
 let chefsIds = []
 let usersIds = []
-let filesIds = []
 let recipesIds = []
 let totalRecipes = 10
 let totalUsers = 5
 let totalChefs = 5
 
 async function createChefs() {
+    const chefs = []
     const files = []
 
-    while (files.length < 10) {
+    while (files.length < 5) {
         files.push({
-            filename: faker.image.image(),
+            filename: faker.image.people(),
             path: `public/images/placeholder.png`,
         })
     }
@@ -28,24 +28,24 @@ async function createChefs() {
     const filesPromise = files.map(file => File.create(file))
 
     filesIds = await Promise.all(filesPromise)
-    
-    const chefs = []
-
+ 
     while (chefs.length < totalChefs) {
+        const numberrandom = Math.floor(Math.random() * totalChefs)
+        console.log(numberrandom)
         chefs.push({
             name: faker.name.title(),
-            file_id: chefs.length + 1,
+            file_id: filesIds[numberrandom],
         })
     }
-    
+
     const chefsPromise = chefs.map(chef => Chef.create(chef))
-    
-    chefsIds = await Promise.all(chefsPromise)
+
+    await Promise.all(chefsPromise)
 }
 
-function randomadmin(){
+function randomadmin() {
     const number = Math.random() * 10
-    if(number > 5){
+    if (number > 5) {
         return true
     } else {
         return false
